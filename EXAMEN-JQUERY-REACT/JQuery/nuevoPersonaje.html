@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Personaje</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="home.html">
+          <img src="https://dbdzm869oupei.cloudfront.net/img/sticker/preview/9371.png" width="125" height="50" alt="">
+
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="nuevoPersonaje.html">Nuevo personaje    </a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="modificarPersonajes.html">Modificar personajes</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Series
+              </a>
+              <ul id="desplegable">
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+      <div class="container py-4">
+        <h1 class="text-center fw-bold mb-4">Nuevo Personaje</h1>
+        <div class="mb-3">
+            <label for="usuario" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" />
+        </div>
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen</label>
+            <input type="text" class="form-control" id="imagen" />
+        </div>
+        <div class="mb-3">
+            <label for="serie" class="form-label">Serie</label>
+            <select class="form-select" id="serie">
+                <!-- Opciones de serie se cargarán dinámicamente desde JavaScript -->
+            </select>
+        </div>
+        <div class="text-center">
+            <br></br>
+            <button id="insertPersonaje" class="btn btn-primary btn-lg" style="--bs-btn-padding-x: 5rem; --bs-btn-font-size: 1rem">
+                Insertar Personaje
+            </button> &nbsp;
+        </div>
+    </div>
+
+
+
+
+
+
+      <script src="./js/code.jquery.com_jquery-3.7.1.js"></script>
+      <script src="./js/bootstrap.bundle.min.js"></script>
+      <script src="./js/sweetaret.js"></script>
+      <script>
+          var urlSeries = "https://apiseriespersonajes.azurewebsites.net/"
+          $(document).ready(function(){
+              cargarSeries();
+              cargarSelect();
+              crearPersonaje();
+          })
+          function crearPersonaje(){
+            $('#insertPersonaje').on('click', function () {
+            var nombre = $('#nombre').val();
+            var imagen = $('#imagen').val();
+            var idSerie =parseInt( $('#serie').val());
+
+            var url = urlSeries + 'api/Personajes';
+
+            var personaje = {
+                idPersonaje: -1, // el id de la apuesta no importa
+                nombre: nombre,
+                imagen: imagen,
+                idSerie: idSerie,
+            };
+            console.log(personaje);
+            
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: JSON.stringify(personaje),
+                contentType: 'application/json',
+                success: function () {
+                    alert('Personaje Insertado');
+                    window.location.href = 'personajes.html?idserie='+ idSerie; 
+                },
+                error: function (error) {
+                    console.error('Error inserting bet:', error);
+                }
+            });
+        });
+          }
+
+          function cargarSelect(){
+            var request = "api/Series"
+            $.ajax({
+                url: urlSeries + request,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var selectOptions = $("#serie"); // Referencia al select
+                    $.each(data, function (index, serie) {
+                        // Agregamos opciones al select
+                        selectOptions.append($("<option></option>")
+                            .attr("value", serie.idSerie)
+                            .text(serie.nombre));
+                    });
+                }
+            })
+          }
+  
+          function cargarSeries(){
+              var request = "api/Series"
+              $.ajax({
+                  url: urlSeries + request,
+                  type: "GET",
+                  dataType: "json",
+                  success: function (data) {
+                      var html = "";
+                      html +=" <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>"
+                      $.each(data, function (index, serie) {
+                          html +="<li><a class='dropdown-item' href='serie.html?idserie="+serie.idSerie+"'>"+serie.nombre +"</a></li>"
+                      })
+                      html +="</ul>"
+                       $("#desplegable").html(html);
+                  }
+              })
+             
+          }
+  
+      </script>
+</body>
+</html>

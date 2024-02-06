@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        img{
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Imagenes y botones</h1>
+    <label>seleccione numero de imagenes y botones:</label>
+    <input type="range" id="rango" min="1" value="1" max="10" />
+    <div id="contenedorbot"></div>
+    <br>
+    <div id="contenedorimg"></div>
+
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#rango").change(function () {
+                var cantidad = parseInt($(this).val());
+                $("#contenedorbot").text(" ");
+                $("#contenedorimg").text(" ");
+                for (let i = 0; i <= cantidad; i++) {
+                    var boton = $("<button>", {
+                        "text": "imagen" + i,
+                        "data-num": i
+                    });
+                    var img = $("<img>", {
+                        "src": "images/img1.jpg",
+                        "data-num": i
+                    });
+
+                    $("#contenedorimg").append(img);
+                    $("#contenedorbot").append(boton);
+
+                    boton.click(function(){
+                        console.log("click")
+                        var numero = $(this).data("num");
+                        console.log(numero);
+                        $("img[data-num='" + numero + "']").attr("src", "images/img2.jpg");   
+                    })
+
+
+                }
+            })
+        })
+    </script>
+</body>
+</html>

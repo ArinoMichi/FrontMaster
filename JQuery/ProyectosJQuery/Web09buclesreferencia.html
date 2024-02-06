@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Bucle each</h1>
+
+    <p>Parrafo 1</p>
+    <p>Parrafo 2</p>
+    <p>Parrafo 3</p>
+    
+    <p>Parrafo 4</p>
+    <p>Parrafo 5</p>
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("p").click(function(){
+                var colores = ["blue", "green", "orange","yellow","red"];
+                $("p").each(function(){
+                    var indice = parseInt(Math.random() * colores.length);
+                    var color = colores[indice];
+                    $(this).css("background-color", color);
+                });
+            })
+        })
+    </script>
+</body>
+</html>

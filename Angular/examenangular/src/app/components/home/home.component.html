@@ -1,0 +1,12 @@
+<!-- home.component.html -->
+<div class="d-flex flex-wrap justify-content-center">
+    <div *ngFor="let cubo of cubos" class="card m-2" style="width: 18rem;">
+      <img [src]="cubo.imagen" class="card-img-top" alt="Cubo Imagen" style="height: 250px; width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">{{ cubo.nombre }}</h5>
+        <p class="card-text"><strong>Precio:</strong> {{ cubo.precio }} €</p>
+        <a [routerLink]="'/detallescubo/' + cubo.idCubo" class="btn btn-success btn-block">DETALLES</a>
+      </div>
+    </div>
+  </div>
+  

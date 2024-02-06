@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Generar controles</h1>
+    <label>Introduzca un texto</label>
+    <input type="text" id="cajatexto">
+    <button id="botongenerar">Generar control</button>
+
+    <div id="contenedor"></div>
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#botongenerar").click(function(){
+                //CREAMOS UN PARRAFO POR CADA PULSACION
+                var texto = $("#cajatexto").val();
+                //NECESITO QUE NUESTROS CONTROLES DINAMICOS TENGAN EVENTOS; POR LO QUE LOS CREAMOS CON JQUERY
+                var parrafo = $("<p>", {"text": texto, "style": "color:blue"});
+                    $("#contenedor").append(parrafo);
+                //NECESITAMOS CREAR UN LISTENER PARA QUE AL PULSAR SOBRE CUALQUIER PARRAFO, PODAMOS CAMBIAR SU CONTENIDO Y COLOR DE FONDO
+                // parrafo.on("click",function(){
+                // })
+                parrafo.click(function(){
+                    //LO QUE NECESITAMOS ES RECUPERAR EL TEXTO DE LA CAJA PARA PONERLO EN EL PARRAFO PULSADO
+                    var contenido = $("#cajatexto").val();
+                    $(this).text(contenido);
+                })
+            })
+            $("p").click(function(){
+                $(this).hide();
+            })
+        })
+    </script>
+</body>
+</html>

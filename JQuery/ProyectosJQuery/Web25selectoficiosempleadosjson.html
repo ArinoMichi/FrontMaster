@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>OFICIOS Y EMPLEADOS</h1>
+    <select id="selectoficio"></select>
+    <label>Incremento salarial:</label>
+    <input type="text" id="cajaincremento"/>
+    <button id="botonincrementar">Incrementar salarios</button>
+    <table id="tablaempleados" border="1">
+        <thead>
+            <tr>
+                <th>IDEmpleado</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                <th>Director</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        var urlEmpleados = "https://apiempleadosaction.azurewebsites.net/";
+        $(document).ready(function () {
+            var html = "";
+            
+
+            var request = "api/Empleados/GetOficios/oficios";
+            $.getJSON(urlEmpleados + request, function (data) {
+                console.log("cargando oficios");
+                $.each(data, function (index, oficio) {
+                    html += "<option>" + oficio + "</option>";
+                })
+                $("#selectoficio").html(html);
+            })
+
+            $("#selectoficio").change(function () {
+                console.log("llego aqui");
+                var ofi = $(this).val();
+                console.log(ofi);
+                cargarEmpleados(ofi);
+
+                })
+
+            $("#botonincrementar").click(function(){
+                var ofi = $("#selectoficio").val();
+                var incremento = parseInt($("#cajaincremento").val());
+                console.log(ofi);
+                request = "api/empleados/incrementarsalariooficios/" + ofi + "/" + incremento;
+                $.ajax({
+                    "url" : urlEmpleados + request,
+                    "type" : "PUT",
+                    success: function(){
+                        console.log("datos modificados");
+                        cargarEmpleados(ofi);
+                    }
+                })
+            })
+
+            })
+
+
+            function cargarEmpleados(oficio){
+                html = "";
+                request = "/api/Empleados/GetEmpleadosOficio/empleadosoficio/" + oficio
+               $.getJSON(urlEmpleados + request, function(data){
+                        $.each(data, function (index, empleado) {
+                            html += "<tr>";
+                            html += "<td>" + empleado.idEmpleado + "</td>";
+                            html += "<td>" + empleado.apellido + "</td>";
+                            html += "<td>" + empleado.oficio + "</td>";
+                            html += "<td>" + empleado.salario + "</td>";
+                            html += "<td>" + empleado.director + "</td>";
+                            html += "</tr>";
+                        })
+                        $("#tablaempleados").html(html);
+                    })
+            }
+
+        
+    </script>
+</body>
+
+</html>

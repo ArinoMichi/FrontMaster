@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #botones {
+            justify-content: center;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Clientes</h1>
+    <div id="botones"></div>
+    <hr/>
+    <div id="datos"></div>
+
+
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("empezando");
+            var html = "";
+            $.get("documents/clientes.xml", function (data) {
+                $(data).find("CLIENTE").each(function () {
+                    console.log("leyendo");
+                    var id = $(this).attr("IDCLIENTE");
+                    var nombre = $(this).find("NOMBRE").text();
+                    var cli = $("<button>", {
+                        "text": nombre, "value": id
+                    });
+                    $("#botones").append(cli);
+
+                })
+                $("button").click(function () {
+                    var html = "";
+                    console.log("funciono");
+                    var numcli = $(this).val();
+                    $.get("documents/clientes.xml", function (data) {
+                        
+                        var filtro = "CLIENTE[IDCLIENTE=" + numcli + "]";
+
+                        var nodocliente = $(data).find(filtro).first();
+
+                        var nom = $(nodocliente).find("NOMBRE").text();
+                        var dir = $(nodocliente).find("DIRECCION").text();
+                        var email = $(nodocliente).find("EMAIL").text();
+                        var codpos = $(nodocliente).find("CODIGOPOSTAL").text();
+                        var paginaweb = $(nodocliente).find("PAGINAWEB").text();
+                        var imagen = $(nodocliente).find("IMAGENCLIENTE").text();
+
+                        html += "<p> nombre: " + nom + " <br/>  direccion: " + dir + " <br/> email: " + email + " <br/> codigo postal: " + codpos + "</p>";
+                        html += "<a href='" + paginaweb + "''>Pagina web</a> <br/> <br/> ";
+                        html += "<img src= '" + imagen + "' />";
+                        console.log("llego aqui tambien");
+                        $("#datos").html(html);
+                    })
+                    
+                })
+            })
+
+        })
+    </script>
+</body>
+
+</html>

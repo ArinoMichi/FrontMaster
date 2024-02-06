@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- INCLUYE COMENTARIOS: CONTROL + k + c -->
+    <!-- DESCOMENTAR: CONTROL + k + u -->
+    <!-- REFERENCIA A NUESTRA LIBRERIA JQUERY -->
+    <style>
+        .azul {
+            color: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Selectores Jquery</h1>
+    <button id="boton1">Pulsar para algo...</button>
+    <h1 class="azul">Soy azul</h1>
+    <button class="azul">Soy un boton azul</button>
+
+    <p>Aprendiendo JQuery 1</p>
+    <p>Aprendiendo JQuery 2</p>
+    <p>Aprendiendo JQuery 3</p>
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        //La primera instruccion que debemos incluir es cargar los componentesal iniciar la pagina
+        $(document).ready(function () {
+            alert("Funcionando");
+            //PODEMOS REALIZAR ACCIONES
+            //OCULTAR ALGUN ELEMENTO
+            $("h1").hide();
+            //SELECTOR DE ID
+            $("#boton1").hide();
+            //PODDEMOS ASOCIAR EVENTOS
+            $(".azul").click(function(){
+                //IMPRESCINDIBLE PARA EL DESARROLLO FRONT
+                //VISUALIZAR ACCIONES EN EL EXPLORADOR WEB
+                console.log("mostrando mensajes en web...");
+                alert("Hola mundo");
+                $("h1").show();
+                //TENEMOS UNA PALABRA CLAVE LLAMADA THIS, DICHA PALABRA ACCEDE AL OBJETO QUE HA REALIZADO LA LLAMADA
+                $(this).hide();
+            })
+        })
+    </script>
+</body>
+
+</html>

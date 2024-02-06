@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Departamentos Atributos XML</h1>
+    <label>NOTA:</label>
+    <input type="text" id="cajanota" />
+    <button id="botonbuscarnota">Buscar</button>
+    <table id="tablaalumnos">
+        <thead>
+            <tr>
+                <th>numero </th>
+                <th>nombre</th>
+                <th>apellidos</th>
+                <th>nota</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#botonbuscarnota").click(function () {
+                
+                console.log("Antes del servicio");
+                var nota = parseInt ($("#cajanota").val());
+
+                $.get("documents/alumnos.xml", function (data) {
+                    console.log("Leyendo servicio");
+                    var html = "";
+                    var filtro = "nota:contains(" + nota + ")";
+                    $(data).find("alumno").each(function () {
+                        if (parseInt($(this).find("nota").text()) >= nota) {
+                            console.log("llego");
+                            html += "<tr>";
+                            var numero = $(this).attr("idalumno");
+                            var nombre = $(this).find("nombre").text();
+                            var apellido = $(this).find("apellidos").text();
+                            var notaal = $(this).text();
+                            console.log(notaal);
+                            html += "<td>" + numero + "</td>";
+                            html += "<td>" + nombre + "</td>";
+                            html += "<td>" + apellido + "</td>";
+                            html +="<td>" + notaal + "</td>";
+                            html += "</tr>";
+                        }
+
+                    })
+                    $("#tablaalumnos tbody").html(html);
+                })
+
+                console.log("Despues del servicio");
+            })
+        })
+    </script>
+
+
+</body>
+
+</html>

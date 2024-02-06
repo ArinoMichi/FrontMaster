@@ -1,0 +1,49 @@
+/* Estilos generales */
+div {
+    text-align: center;
+    margin: 20px;
+}
+
+/* Estilos del contenedor del producto */
+.producto {
+    border: 1px solid #ddd;
+    padding: 5px; /* Reducido el padding */
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 50%;
+}
+
+/* Estilos del nombre del producto */
+.nombre {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+/* Estilos de la información del producto */
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+/* Estilos de la imagen del producto */
+.imagen {
+    width: 200px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    object-fit: cover;
+
+
+}
+
+/* Estilos del precio del producto */
+.precio {
+    color: #e44d26;
+    font-size: 1em; /* Reducido el tamaño del texto */
+    margin: 0;
+}

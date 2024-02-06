@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            text-align: center;
+        }
+
+        img {
+            height: 150px;
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Seleccionar coches</h1>
+    <select id="selectcoches">
+    </select>
+    <div id="resultado"></div>
+
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            var html = "";
+            $.get("documents/coches.xml", function (data) {
+                $(data).find("coche").each(function () {
+                    var id = $(this).attr("idcoche");
+                    var marca = $(this).find("marca").text();
+                    html += "<option value=" + id + ">" + marca + "</option>";
+                    // var opt = $("<option>",{
+                    //     "text": marca, "value" : id
+                    // }) esta opcion crea el option de manera dinamica
+                })
+                $("#selectcoches").html(html);
+
+                $("#selectcoches").change(function () {
+                    console.log("he llegado aqui");
+
+                    var numcoche = $("#selectcoches").val();
+                    console.log(numcoche);
+                    $.get("documents/coches.xml", function (data) {
+                        console.log("Leyendo servicio");
+                        var html = "";
+                        var filtro = "coche[idcoche=" + numcoche + "]";
+
+                        var nodocoche = $(data).find(filtro).first();
+
+                        var cmarca = $(nodocoche).find("marca").text();
+                        console.log(cmarca);
+                        var modelo = $(nodocoche).find("modelo").text();
+                        console.log(modelo);
+                        var imagen = $(nodocoche).find("imagen").text();
+
+                            html += "<p>" + cmarca + "  " + modelo + "</p>";
+                            html += "<img src= '" + imagen + "' />";
+                            console.log("llego aqui tambien");
+                            $("#resultado").html(html);
+                        })
+                        
+                    })
+                })
+            })
+        
+    </script>
+</body>
+
+</html>

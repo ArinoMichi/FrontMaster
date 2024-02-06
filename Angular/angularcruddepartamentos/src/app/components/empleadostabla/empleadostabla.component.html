@@ -1,0 +1,33 @@
+<div>
+  <label for="cajauser">Usuario:</label>
+  <input type="text" id="cajauser" #cajauser />
+
+  <label for="cajapassword">Contraseña:</label>
+  <input type="password" id="cajapassword" #cajapassword />
+
+  <button (click)="logear()">Iniciar sesión</button>
+
+  <div *ngIf="token">
+    <p>Token: {{ token }}</p>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>APELLIDO</th>
+            <th>OFICIO</th>
+            <th>SALARIO</th>
+            <th>DIRECTOR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of empleados">
+            <td>{{empleado.idEmpleado}}</td>
+            <td>{{empleado.apellido}}</td>
+            <td>{{empleado.salario}}</td>
+            <td>{{empleado.director}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  
+</div>

@@ -1,0 +1,13 @@
+img{
+    border-radius: 50%;
+    
+}
+h1{
+    color: brown;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    img {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }

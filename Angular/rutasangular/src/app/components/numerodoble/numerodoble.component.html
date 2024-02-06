@@ -1,0 +1,12 @@
+<div>
+    <h1>Routing con parametros</h1>
+    <button (click)="goToHome()">Ir a Home</button>
+    <button (click)="redirect(66)">Doble 66</button>
+    <button (click)="redirect(128)">Doble 128</button>
+    <div *ngIf="numero">
+        <h1 style="color: gray;">El doble de {{numero}} es {{doble}}</h1>
+    </div>
+    <div *ngIf="!numero">
+        <h1 style="color: red;"> No tenemos parametro numero</h1>
+    </div>
+</div>

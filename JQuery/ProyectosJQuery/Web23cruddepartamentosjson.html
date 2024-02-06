@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>DISNEYLAND
+            <a href="#">Empleados</a>
+        </li>
+    </ul>$
+
+
+
+
+
+    <h1>CRUD DEPARTAMENTOS JSON</h1>
+    <label>Número</label>
+    <input type="text" id="cajaid" /><br />
+    <label>Nombre</label>
+    <input type="text" id="cajanombre" /><br />
+    <label>Localidad</label>
+    <input type="text" id="cajalocalidad" /><br />
+    <button id="botoninsert">Insertar</button>
+    <button id="botonupdate">Update</button>
+    <button id="botondelete">Delete</button>
+
+    <table id="tabladepartamentos" border="1">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Nombre</th>
+                <th>Localidad</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+    <!-- SCRIPTS -->
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        var urlDepartamentos = "https://apicruddepartamentoscore.azurewebsites.net/";
+        $(document).ready(function () {
+            cargarDepartamentos();
+            $("#botoninsert").click(function () {
+                var id = parseInt($("#cajaid").val());
+                var nombre = $("#cajanombre").val();
+                var localidad = $("#cajalocalidad").val();
+
+                //DEBEMOS CREAR UN OBJETO JSON, PARA ELLO
+                //NECESITAMOS UN OBJETO EN JAVASCRIPT
+
+                var departamento = new Object();
+                //LAS PROPIEDADES SON DINAMICAS Y DEBEN COINCIDIR CON EL SERVICIO
+                departamento.numero = id;
+                departamento.nombre = nombre;
+                departamento.localidad = localidad;
+
+                //TRANSFORMAMOS EL OBJETO JS A FORMATO JSON
+                var dataJson = JSON.stringify(departamento);
+                console.log(dataJson);
+                //AL SER UNA CONSULTA DE ACCION (POST) DEBEMOS UTILIZAR $.ajax 
+                //E INDICAR contentType (LO QUE ENVIAMOS) Y data (LOS DATOS)
+                var request = "api/Departamentos";
+                $.ajax({
+                    url: urlDepartamentos + request,
+                    type: "POST",
+                    contentType: "application/json",
+                    data: dataJson,
+                    success: function () {
+                        console.log("Insertado");
+                        cargarDepartamentos();
+                    }
+                })
+            })
+
+            $("#botonupdate").click(function () {
+                var id = parseInt($("#cajaid").val());
+                var nombre = $("#cajanombre").val();
+                var localidad = $("#cajalocalidad").val();
+
+                var dataJson = getJsonDepartamento(id, nombre, localidad);
+                var request = "api/Departamentos";
+                $.ajax({
+                    url: urlDepartamentos + request,
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: dataJson,
+                    success: function () {
+                        console.log("Actualizado");
+                        cargarDepartamentos();
+                    }
+                })
+            })
+
+            $("#botondelete").click(function(){
+                var id = parseInt($("#cajaid").val());
+                var request = "api/Departamentos/" + id;
+                $.ajax({
+                    url: urlDepartamentos + request,
+                    type: "DELETE",
+                    success : function(){
+                        console.log("BORRADO");
+                        cargarDepartamentos();
+                    }
+                })
+            })
+        })
+
+        function getJsonDepartamento(id, nombre, localidad) {
+            var departamento = new Object();
+
+            departamento.numero = id;
+            departamento.nombre = nombre;
+            departamento.localidad = localidad;
+            var dataJson = JSON.stringify(departamento);
+            return dataJson;
+        }
+
+        function cargarDepartamentos() {
+            var request = "api/Departamentos";
+            var html = "";
+            $.getJSON(urlDepartamentos + request, function (data) {
+                console.log("Leyendo servicio");
+                $.each(data, function (index, departamento) {
+                    html += "<tr>";
+                    html += "<td>" + departamento.numero + "</td>";
+                    html += "<td>" + departamento.nombre + "</td>";
+                    html += "<td>" + departamento.localidad + "</td>";
+                    html += "</tr>";
+                })
+                $("#tabladepartamentos").html(html);
+            })
+        }
+    </script>
+
+</body>
+
+</html>

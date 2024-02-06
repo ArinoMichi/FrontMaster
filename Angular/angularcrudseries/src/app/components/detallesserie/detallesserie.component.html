@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="card mx-auto" style="width: 18rem;">
+      <img src="{{serie.imagen}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{serie.nombre}}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">IMDB: {{serie.puntuacion}}</li>
+      </ul>
+      <div class="card-body">
+        <!-- Agregamos un botón que navega a la página de personajes -->
+        <a [routerLink]="'/personajes/' + serie.idSerie" class="btn btn-success btn-block">Ver Personajes</a>
+      </div>
+    </div>
+  </div>
+  

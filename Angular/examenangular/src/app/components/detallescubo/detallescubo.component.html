@@ -1,0 +1,23 @@
+<!-- home.component.html -->
+<div class="d-flex flex-wrap justify-content-center">
+  <div class="card m-2" style="width: 18rem">
+    <img
+      [src]="cubo.imagen"
+      class="card-img-top"
+      alt="Cubo Imagen"
+      style="height: 250px; width: 100%"
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{ cubo.nombre }}</h5>
+      <p class="card-text"><strong>Precio:</strong> {{ cubo.precio }} €</p>
+      <h2>Comentarios:</h2>
+      <ul>
+        <li *ngFor="let comentario of comentarios">
+          {{ comentario.comentario }} -
+          {{ comentario.fechaComentario | date : "medium" }}
+        </li>
+      </ul>
+      <a [routerLink]="'/'" class="btn btn-warning btn-block">VOLVER</a>
+    </div>
+  </div>
+</div>

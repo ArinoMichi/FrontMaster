@@ -1,0 +1,6 @@
+<div *ngIf="comic">
+    <h1>{{comic.titulo}}</h1>
+      <img src="{{comic.imagen}}" style="height: 400px; width: 200px;"/>
+      <h2>{{comic.descripcion}}</h2>
+      <a [routerLink]="'/libreria'">Volver</a>
+</div>

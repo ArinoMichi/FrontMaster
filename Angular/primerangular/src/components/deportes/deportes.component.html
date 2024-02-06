@@ -1,0 +1,29 @@
+<div>
+    <h1>EJEMPLO DIRECTIVAS ANGULAR</h1>
+
+    <ul>
+        <li *ngFor="let num of numeros"
+        [class.par]="num % 2 == 0"
+        [class.impar]="num%2 ==1">
+            {{num}}
+        </li>
+    </ul>
+    <h2>Numreo deportes: {{sports.length}}</h2>
+    <!-- DIRECTIVA IF -->
+    <div *ngIf="sports.length < 4; else condicionelse">
+        <p style="color: red;">
+        Tienes menos de 4 deportes</p>
+    </div>
+    <ng-template #condicionelse>
+        <p style="color: blue;">Tenemos 4 o mas deportes!!</p>
+    </ng-template>
+    <h4 style="color: violet;">
+        El primer deporte es {{sports[0]}}
+    </h4>
+    <!-- UN BUCLE CON DIRECTIVA FOR -->
+    <ul>
+        <li *ngFor="let depor of sports; let i = index">
+            Index: {{i}}  Deporte: {{depor}}
+        </li>
+    </ul>
+</div>

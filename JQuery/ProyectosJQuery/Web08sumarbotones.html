@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Suma:</span>
+    <h1 id="suma">0</h1>
+    <div id="contenedor"></div>
+    <br/>
+    <button id="botongenerar">Generar botones</button>
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#botongenerar").click(function () {
+                $("#contenedor").text(" ");
+                for (let i = 0; i <= 10; i++) {
+                    var numboton = parseInt(Math.random() * 10);
+                    var boton = $("<button>", {
+                        "text": numboton
+                    });
+                    $("#contenedor").append(boton);
+
+                    boton.click(function () {
+                        var num1 = parseInt($("#suma").text());
+                        var num2 = parseInt($(this).text());
+                        var suma = num1 + num2;
+                        $("#suma").html(suma);
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

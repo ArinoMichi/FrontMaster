@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar Hospital</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Barra de navegación Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Hospitales</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="insertar.html">Insertar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="editar.html">Editar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-8">
+                <h1>Insertar Hospital</h1>
+                <form id="insertarForm">
+                    <div class="mb-3">
+                        <label for="id" class="form-label">Id:</label>
+                        <input type="text" class="form-control" id="idHospital" name="idhospital">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección:</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono:</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label for="camas" class="form-label">Camas:</label>
+                        <input type="text" class="form-control" id="camas" name="camas">
+                    </div>
+                    <button id="botoninsertar"  type="submit"  class="btn btn-primary">Insertar Hospital</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="../js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        var urlHospitales = "https://apicrudhospital.azurewebsites.net";
+        $(document).ready(function () {
+            $("#botoninsertar").click(function(){
+                console.log("boton pulsado");
+                var id = parseInt($("#idHospital").val());
+                var nombre = $("#nombre").val();
+                var direccion = $("#direccion").val();
+                var telefono = $("#telefono").val();
+                var camas = parseInt($("#camas").val());
+
+                var hospital = new Object();
+
+                hospital.idhospital= id;
+                hospital.nombre = nombre;
+                hospital.direccion = direccion;
+                hospital.telefono = telefono;
+                hospital.camas = camas;
+
+                var dataJson = JSON.stringify(hospital);
+                console.log(dataJson);
+
+                var request= "/webresources/hospitales/post";
+
+                $.ajax({
+                    url : urlHospitales + request,
+                    type : "POST",
+                    contentType: "application/json",
+                    data: dataJson,
+                    success: function(){
+                        console.log("Hospital insertado correctamente");
+                        window.location.href = "index.html";
+                    }
+                })
+
+
+            })
+        })
+    </script>
+</body>
+
+</html>

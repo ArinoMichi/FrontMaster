@@ -1,0 +1,23 @@
+<div class="w-50 mx-auto text-center">
+    <h1>Api Coches</h1>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID COCHE</th>
+                <th>MARCA</th>
+                <th>MODELO</th>
+                <th>CONDUCTOR</th>
+                <th>IMAGEN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let coche of coches">
+                <td>{{coche.idcoche}}</td>
+                <td>{{coche.marca}}</td>
+                <td>{{coche.modelo}}</td>
+                <td>{{coche.conductor}}</td>
+                <td><img src="{{coche.imagen}}" style="width: 250px; height: 250;"/></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

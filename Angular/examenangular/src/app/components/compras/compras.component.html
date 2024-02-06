@@ -1,0 +1,19 @@
+<!-- compras-usuario.component.html -->
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Compras del Usuario</h1>
+    <div class="card" *ngFor="let compra of compras">
+      <div class="card-body">
+        <h5 class="card-title text-primary">Pedido: {{ compra.idPedido }}</h5>
+        <p class="card-text">
+          <strong class="text-success">ID Cubo:</strong> {{ compra.idCubo }}<br>
+          <strong class="text-info">ID Usuario:</strong> {{ compra.idUsuario }}<br>
+          <strong class="text-danger">Fecha:</strong> {{ formatearFecha(compra.fechaPedido) }}
+        </p>
+      </div>
+    </div>
+    <div *ngIf="compras.length === 0" class="text-center mt-4">
+      <p class="text-muted">No hay compras realizadas.</p>
+    </div>
+  </div>
+  

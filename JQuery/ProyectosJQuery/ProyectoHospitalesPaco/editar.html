@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Crud Hospitales</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nuevo.html">Nuevo Hospital</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="editar.html">Editar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1>Editar hospital</h1>
+    <label>Id Hospital</label>
+      <input type="text" id="cajaid" class="form-control"/><br/>
+      <label>Nombre</label>
+      <input type="text" id="cajanombre" class="form-control"/><br/>
+      <label>Direccion</label>
+      <input type="text" id="cajadireccion" class="form-control"/><br/>
+      <label>Telefono</label>
+      <input type="text" id="cajatelefono" class="form-control"/><br/>
+      <label>Camas</label>
+      <input type="text" id="cajacamas" class="form-control"/><br/>
+
+      <button id="botonupdate" class="btn btn-info">Create</button>
+
+
+
+
+
+    <script src="../js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        var urlHospitales = "https://apicrudhospital.azurewebsites.net/";
+        $(document).ready(function () {
+            //NECESITO SACAR EL ID DEL HOSPITAL EN LA URL
+            var params = new window.URLSearchParams(window.location.search);
+            console.log(params.get("idhospital"));
+            var idhospital = params.get("idhospital");
+
+            var requestFind = "webresources/hospitales/" + idhospital;
+            $.ajax({
+                "url" : urlHospitales + requestFind,
+                "type" : "GET",
+                success : function(data){
+                    $("#cajaid").val(data.idhospital);
+                    $("#cajanombre").val(data.nombre);
+                    $("#cajadireccion").val(data.direccion);
+                    $("#cajatelefono").val(data.telefono);
+                    $("#cajacamas").val(data.camas);
+                }
+            })
+
+            $("#botonupdate").click(function(){
+                var requestPut = "webresources/hospitales/put";
+                var idhospital = parseInt($("#cajaid").val());
+                var nombre = $("#cajanombre").val();
+                var direccion = $("#cajadireccion").val();
+                var telefono = $("#cajatelefono").val();
+                var camas = parseInt($("#cajacamas").val());
+                var hospital = new Object();
+
+                hospital.idhospital= idhospital;
+                hospital.nombre= nombre;
+                hospital.direccion=direccion;
+                hospital.telefono=telefono;
+                hospital.camas=camas;
+
+                var hospitalJson = JSON.stringify(hospital);
+
+                $.ajax({
+                    url : urlHospitales + requestPut,
+                    type : "PUT",
+                    contentType: "application/json",
+                    data: hospitalJson,
+                    success: function(){
+                        console.log("editado");
+                        window.location.href="index.html";
+                    }
+                })
+            })
+
+
+        })
+    </script>
+</body>
+
+</html>

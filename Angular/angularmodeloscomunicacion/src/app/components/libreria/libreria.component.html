@@ -1,0 +1,30 @@
+<div>
+  <h1>Libreria de comics</h1>
+  <hr />
+  <form #insertComic="ngForm" (ngSubmit)="insertarComic()">
+    <label>Titulo:</label>
+    <input type="text" name="cajaTitulo" #cajaTitulo /><br />
+    <label>Imagen:</label>
+    <input type="text" name="cajaImagen" #cajaImagen /><br />
+    <label>Descripcion:</label>
+    <input type="text" name="cajaDescripcion" #cajaDescripcion /><br />
+    <button>Insertar Comic</button>
+  </form>
+  <hr />
+  <div *ngIf="seleccionado != null" style="background-color: pink">
+    <h1>FAVORITO:</h1>
+    <h1>{{ seleccionado.titulo }}</h1>
+    <img src="{{ seleccionado.imagen }}" style="height: 400px; width: 200px" />
+    <h2>{{ seleccionado.descripcion }}</h2>
+  </div>
+  <hr />
+  <ul>
+    <li *ngFor="let comic of comics">
+      <app-comic
+        [comic]="comic"
+        (seleccionarFavorito)="seleccionarFavorito($event)"
+        (eliminar)="eliminarComic($event)"
+      ></app-comic>
+    </li>
+  </ul>
+</div>

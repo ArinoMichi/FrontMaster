@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>QUE NUMERO ES MAYOR Y MENOR</h1>
+    <label>Numero 1</label>
+    <input type="text" id="cajanumero1" /> <br />
+    <label>Numero 2</label>
+    <input type="text" id="cajanumero2" /> <br />
+    <label>Numero 3</label>
+    <input type="text" id="cajanumero3" /> <br />
+    <br>
+    <button id="botonsumar"> Sumar numeros</button>
+    <h1 id="resultado"></h1>
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#botonsumar").click(function () {
+                var num1 = parseInt($("#cajanumero1").val());
+                var num2 = parseInt($("#cajanumero2").val());
+                var num3 = parseInt($("#cajanumero3").val());
+
+                var mayor = 0;
+                var menor = 0;
+
+                if (num1 > num2 && num1 > num3) {
+                    mayor = num1;
+                } else if (num2 > num1 && num2 > num3) {
+                    mayor = num2;
+                }else{
+                    mayor = num3;
+                }
+                if (num1 < num2 && num1 < num3) {
+                    menor = num1;
+                } else if (num2 < num1 && num2 < num3) {
+                    menor = num2;
+                }else{
+                    menor = num3;
+                }
+
+                var suma = num1 + num2 + num3;
+                var intermedio = suma - mayor - menor;
+                $("#resultado").html("el mas grande es: " + mayor + " el mediano es: " + intermedio + " y el mas pequeño es: " + menor);
+
+            }) 
+        })
+
+    </script>
+</body>
+
+</html>

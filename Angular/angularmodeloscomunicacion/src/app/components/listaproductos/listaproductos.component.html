@@ -1,0 +1,11 @@
+<div style="display: flex; align-items: center; flex-direction: column;">
+    <h1>Ejemplos Productos Model</h1>
+    <div class="producto" *ngFor="let producto of productos; let i = index">
+        <h2 class="nombre">{{producto.nombre}}</h2>
+        <div class="info">
+            <img class="imagen" src="{{producto.imagen}}" alt="{{producto.nombre}}"/>
+            <p class="precio">Precio: {{producto.precio}}</p>
+            <button (click)="verDetalles(i)">Detalles</button>
+        </div>
+    </div>
+</div>

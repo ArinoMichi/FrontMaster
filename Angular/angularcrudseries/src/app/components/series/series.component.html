@@ -1,0 +1,6 @@
+<li *ngFor="let serie of series">
+    <a class="dropdown-item" [routerLink]="'detallesserie/' + serie.idSerie">{{
+      serie.nombre
+    }}</a>
+  </li>
+  

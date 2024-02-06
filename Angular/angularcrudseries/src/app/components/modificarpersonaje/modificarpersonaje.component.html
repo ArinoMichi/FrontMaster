@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form (ngSubmit)="modificarPersonaje()">
+          <div class="mb-3">
+            <label for="cajaidserie" class="form-label">Selecciona una serie:</label>
+            <select class="form-select" #cajaidserie name="cajaidserie">
+              <option *ngFor="let serie of series" [value]="serie.idSerie">{{ serie.nombre }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="cajaidpersonaje" class="form-label">Selecciona un personaje:</label>
+            <select class="form-select" #cajaidpersonaje name="cajaidpersonaje">
+              <option *ngFor="let personaje of personajes" [value]="personaje.idPersonaje">{{ personaje.nombre }}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Insertar Personaje</button>
+        </form>
+      </div>
+    </div>
+  </div>

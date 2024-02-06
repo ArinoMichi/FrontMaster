@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="home.html">
+          <img src="./assets/images/champions.png" width="60" height="60" alt="">
+          Champions
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="apuestas.html">Apuestas</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Equipos
+              </a>
+              <ul id="desplegable">
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container py-4">
+        <h1 class="text-center fw-bold mb-4">Realizar Apuesta</h1>
+        <div class="mb-3">
+            <label for="usuario" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="usuario" />
+        </div>
+        <div class="mb-3">
+            <label for="resultado" class="form-label">Resultado</label>
+            <input type="text" class="form-control" id="resultado" />
+        </div>
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" class="form-control" id="fecha" />
+        </div>
+        <div class="text-center">
+            <br></br>
+            <button id="insertApuesta" class="btn btn-primary btn-lg" style="--bs-btn-padding-x: 5rem; --bs-btn-font-size: 1rem">
+                Realizar Apuesta
+            </button> &nbsp;
+            <a href="apuestas.html" class="btn btn-secondary">Volver</a>
+        </div>
+    </div>
+
+
+
+
+      
+    <script src="../js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/sweetaret.js"></script>
+    <script>
+            var urlApuestas = "https://apiapuestas.azurewebsites.net/";
+        $(document).ready(function(){
+            cargarEquipos();
+            crearApuesta();
+        })
+
+        function crearApuesta(){
+            $('#insertApuesta').on('click', function () {
+            var usuario = $('#usuario').val();
+            var resultado = $('#resultado').val();
+            var fecha = $('#fecha').val();
+
+            var url = urlApuestas + 'api/apuestas';
+
+            var apuesta = {
+                idApuesta: 1, // el id de la apuesta no importa
+                usuario: usuario,
+                resultado: resultado,
+                fecha: fecha,
+            };
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: JSON.stringify(apuesta),
+                contentType: 'application/json',
+                success: function () {
+                    alert('Apuesta realizada correctamente');
+                    window.location.href = 'apuestas.html'; 
+                },
+                error: function (error) {
+                    console.error('Error inserting bet:', error);
+                }
+            });
+        });
+
+        }
+
+        function cargarEquipos(){
+            var request = "api/Equipos"
+            $.ajax({
+                url: urlApuestas + request,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var html = "";
+                    html +=" <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>"
+                    $.each(data, function (index, equipo) {
+                        html +="<li><a class='dropdown-item' href='detallesEquipo.html?idequipo="+equipo.idEquipo+"'>"+equipo.nombre +"</a></li>"
+                    })
+                    html +="</ul>"
+                     $("#desplegable").html(html);
+                }
+            })
+           
+        }
+        
+    </script>
+</body>
+</html>

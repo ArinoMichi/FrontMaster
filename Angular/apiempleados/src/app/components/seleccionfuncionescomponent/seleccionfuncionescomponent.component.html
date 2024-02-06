@@ -1,0 +1,22 @@
+<!-- seleccionfuncionescomponent.component.html -->
+
+<!-- seleccionfuncionescomponent.component.html -->
+
+<div class="container mt-4">
+    <label for="funcionesSelect" class="form-label">Selecciona funciones:</label>
+    <select id="funcionesSelect" name="funcionesSelect" [(ngModel)]="funcionesSeleccionadas" multiple class="form-select" (change)="onFuncionesSelectChange()">
+      <option *ngFor="let funcion of funcionesDisponibles" [value]="funcion">{{ funcion }}</option>
+    </select>
+  </div>
+  
+  <div class="container mt-4">
+    <div *ngIf="empleados.length > 0">
+      <h2 class="mt-4">Empleados:</h2>
+      <ul class="list-group">
+        <li *ngFor="let empleado of empleados" class="list-group-item">
+          {{ empleado.apellido }} - {{ empleado.funcion }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

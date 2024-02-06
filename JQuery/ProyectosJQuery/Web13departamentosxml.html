@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Departamentos Atributos XML</h1>
+    <button id="botondepartamentos">Cargar Departamentos XML</button>
+    <table id="tabladepartamentos">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Nombre</th>
+                <th>Localidad</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#botondepartamentos").click(function(){
+                console.log("Antes del servicio");
+
+                $.get("documents/departamentos.xml",function(data){
+                    console.log("Leyendo servicio");
+                    var html = "";
+                        $(data).find("DEPT").each(function(){
+                            html += "<tr>";
+                                //PARA EL ATRIBUTO, UTILIZAMOS .attr("ATRIBUTO")
+                                var numero = $(this).attr("DEPT_NO");
+                                var nombre = $(this).find("DNOMBRE").text();
+                                var loc = $(this).find("LOC").text();
+                                html += "<td>" + numero+ "</td>";
+                                html += "<td>" + nombre+ "</td>";
+                                html += "<td>" + loc+ "</td>";
+                            html += "</tr>";
+
+                        })
+                        $("#tabladepartamentos tbody").append(html);
+                })
+
+                console.log("Despues del servicio");
+            })
+        })
+    </script>
+
+
+</body>
+</html>

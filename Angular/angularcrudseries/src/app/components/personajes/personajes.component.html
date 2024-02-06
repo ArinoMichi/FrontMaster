@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <a class="btn btn-danger" [routerLink]="'/detallesserie/' + idSerie">VOLVER</a>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Imagen</th>
+              <th>ID Serie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let personaje of personajes">
+              <td>{{ personaje.idPersonaje }}</td>
+              <td>{{ personaje.nombre }}</td>
+              <td><img src="{{ personaje.imagen }}" alt="{{ personaje.nombre }}" style="max-width: 250px; max-height: 250px;"></td>
+              <td>{{ personaje.idSerie }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

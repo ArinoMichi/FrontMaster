@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form (ngSubmit)="insertarPersonaje()">
+          <div class="mb-3">
+            <label for="cajaid" class="form-label">ID:</label>
+            <input type="number" class="form-control" #cajaid name="cajaid">
+          </div>
+          <div class="mb-3">
+            <label for="cajanombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" #cajanombre name="cajanombre">
+          </div>
+          <div class="mb-3">
+            <label for="cajaimagen" class="form-label">Imagen URL:</label>
+            <input type="text" class="form-control" #cajaimagen name="cajaimagen">
+          </div>
+          <div class="mb-3">
+            <label for="cajaidserie" class="form-label">Selecciona una serie:</label>
+            <select class="form-select" #cajaidserie name="cajaidserie">
+              <option *ngFor="let serie of series" [value]="serie.idSerie">{{ serie.nombre }}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Modificar Personaje</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

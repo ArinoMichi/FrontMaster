@@ -1,0 +1,27 @@
+<!-- login.component.html -->
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h2>Login</h2>
+          </div>
+          <div class="card-body">
+            <form (submit)="login()">
+              <div class="form-group">
+                <label for="cajaid">Email:</label>
+                <input type="text" id="cajaid" #cajaid class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="cajanombre">Password:</label>
+                <input type="password" id="cajanombre" #cajanombre class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

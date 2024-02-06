@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <h1>Sumar Checkbox</h1>
+    <h1 id="resultado">0</h1>
+    <label>seleccione numero checkbox:</label>
+    <input type="range" id="rango" min="1" value="1" max="10" />
+    <span id="valorrango"></span>
+    <div id="contenedor"></div>
+
+
+    <script src="js/code.jquery.com_jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#rango").change(function () {
+                var numcheckbox = parseInt($(this).val());
+                $("#valorrango").text(numcheckbox);
+                $("#contenedor").text(" ");
+
+                for (let i = 0; i <= numcheckbox; i++) {
+
+                    var numero = parseInt((Math.random()) * 10);
+                    var box = $("<input>", {
+                        "value": numero,
+                        "type": "checkbox"
+                    });
+                    var label = $("<label>", {
+                        "text": numero
+                    });
+
+                    $("#contenedor").append(box);
+                    $("#contenedor").append(label);
+
+                    box.change(function(){
+                        var resultado = parseInt($("#resultado").text());
+                    //DEBEMOS PREGUNTAR POR EL VALOR DEL CHECKPOINT
+                        var valor = parseInt($(this).val());
+                        if ($(this).is(":checked") == true) {
+                            resultado += valor;
+                        }else{
+                            resultado -=valor;
+                        }
+                        $("#resultado").text(resultado);
+
+                    })
+                }
+
+            });
+        });
+    </script>
+</body>
+
+</html>
